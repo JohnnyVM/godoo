@@ -31,8 +31,9 @@ func Fields[T OdooModel](table T) []any {
 
 // SearchRead fill a slice of T with the fields specified in opt
 // if opt is nil by default get all columns defined for Table
-// TODO implement a batch load
-func SearchRead[T OdooModel](conn *odoo.Client, table T, args []any, opt map[string]any) ([]T, error) {
+// TODO implement a batch load with search and read
+func SearchRead[T OdooModel](conn *odoo.Client, args []any, opt map[string]any) ([]T, error) {
+	var table T
 	if opt == nil {
 		opt = map[string]any{"fields": Fields(table)}
 	}

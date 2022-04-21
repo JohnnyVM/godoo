@@ -109,14 +109,14 @@ func (c *Client) Search(model string, args []any, opt map[string]any) ([]int64, 
 	return out, nil
 }
 
-func (c *Client) SearchRead(model string, args []any, opt map[string]any) ([]map[string]any, error) {
+func (c *Client) SearchRead(model string, args []any, opt map[string]any) ([]any, error) {
 	reply, err := c.ExecuteKw("search_read", model, args, opt)
 	if err != nil {
 		return nil, err
 	}
-	out, ok := reply.([]map[string]any)
+	out, ok := reply.([]any)
 	if !ok {
-		return nil, errors.New("Invalid cast (expected []map[string]any)")
+		return nil, errors.New("Invalid cast (expected []any)")
 	}
 	return out, nil
 }
