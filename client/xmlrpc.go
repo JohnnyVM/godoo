@@ -1,4 +1,4 @@
-package godoo
+package client
 
 import (
 	"errors"
