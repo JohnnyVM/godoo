@@ -49,7 +49,7 @@ func SearchRead[T OdooModel](conn *odoo.Client, args []any, opt map[string]any) 
 		if err != nil {
 			return nil, err
 		}
-		err = json.Unmarshal(b, out[idx])
+		err = json.Unmarshal(b, &out[idx])
 		if err != nil {
 			return nil, err
 		}
