@@ -8,7 +8,6 @@ import (
 )
 
 type OdooModel interface {
-	Fields() []string
 }
 
 func TableName[T OdooModel](table T) string {

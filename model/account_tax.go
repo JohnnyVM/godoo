@@ -9,12 +9,3 @@ type AccountTax struct {
 	TypeTaxUse string  `json:"type_tax_use"` // posible values sale, purchase, none
 	Amount     float64 `json:"amount"`       // posible values sale, purchase, none
 }
-
-func (rp AccountTax) Fields() []string {
-	tInterface := Fields(rp)
-	out := make([]string, len(tInterface))
-	for _, v := range tInterface {
-		out = append(out, v.(string))
-	}
-	return out
-}

@@ -8,12 +8,3 @@ type ProductPublicCategory struct {
 	ParentId int64  `json:"parent_id"`
 	Sequence int64  `json:"sequence"`
 }
-
-func (pt ProductPublicCategory) Fields() []string {
-	tInterface := Fields(pt)
-	out := make([]string, len(tInterface))
-	for _, v := range tInterface {
-		out = append(out, v.(string))
-	}
-	return out
-}
