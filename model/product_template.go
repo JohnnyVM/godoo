@@ -4,6 +4,7 @@ package model
 type ProductTemplate struct {
 	table       string     `value:"product.template"`
 	Id          int64      `json:"id"`
+	Active      bool       `json:"active"`
 	Name        string     `json:"name"`
 	Barcode     OdooString `json:"barcode"`
 	DefaultCode OdooString `json:"default_code"`

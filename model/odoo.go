@@ -10,6 +10,7 @@ import (
 type OdooModel interface {
 	TableName() string
 	Fields() []string
+	// TODO Search(odoo.Domain) ([]int64, error)
 }
 
 func TableName[T OdooModel](table T) string {
