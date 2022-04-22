@@ -109,6 +109,24 @@ func (c *Client) Search(model string, args []any, opt map[string]any) ([]int64, 
 	return out, nil
 }
 
+// Return load a list of models from theirs id
+func (c *Client) Read(model string, ids []int64, opt map[string]any) ([]any, error) {
+	_ids := make([]any, len(ids))
+	for idx, id := range ids {
+		_ids[idx] = id
+	}
+
+	reply, err := c.ExecuteKw("search", model, _ids, opt)
+	if err != nil {
+		return nil, err
+	}
+	out, ok := reply.([]any)
+	if !ok {
+		return nil, errors.New("Invalid cast (expected []any)")
+	}
+	return out, nil
+}
+
 func (c *Client) SearchRead(model string, args []any, opt map[string]any) ([]any, error) {
 	reply, err := c.ExecuteKw("search_read", model, args, opt)
 	if err != nil {

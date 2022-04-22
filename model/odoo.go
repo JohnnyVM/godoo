@@ -33,6 +33,35 @@ func Search[T OdooModel](conn *odoo.Client, args []any, opt map[string]any) ([]i
 	return conn.Search(TableName(table), args, opt)
 }
 
+// Read fill a slice of T with the fields specified in opt
+// if opt is nil by default get all columns defined for Table
+// TODO implement a batch load with search and read
+func Read[T OdooModel](conn *odoo.Client, args []int64, opt map[string]any) ([]T, error) {
+	var table T
+	if opt == nil {
+		opt = map[string]any{"fields": Fields(table)}
+	}
+
+	raw, err := conn.Read(TableName(table), args, opt)
+	if err != nil {
+		return nil, err
+	}
+
+	out := make([]T, len(raw))
+	for idx, v := range raw {
+		b, err := json.Marshal(v)
+		if err != nil {
+			return nil, err
+		}
+		err = json.Unmarshal(b, &out[idx])
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return out, nil
+}
+
 // SearchRead fill a slice of T with the fields specified in opt
 // if opt is nil by default get all columns defined for Table
 // TODO implement a batch load with search and read
