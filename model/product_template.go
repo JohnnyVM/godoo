@@ -2,11 +2,11 @@ package model
 
 /// Odoo model product_template
 type ProductTemplate struct {
-	table       string `value:"product.template"`
-	Id          int64  `json:"id"`
-	Name        string `json:"name"`
-	Barcode     string `json:"barcode"`
-	DefaultCode string `json:"default_code"`
+	table       string     `value:"product.template"`
+	Id          int64      `json:"id"`
+	Name        string     `json:"name"`
+	Barcode     OdooString `json:"barcode"`
+	DefaultCode OdooString `json:"default_code"`
 }
 
 func (pt ProductTemplate) TableName() string {
