@@ -10,7 +10,6 @@ import (
 type OdooModel interface {
 	TableName() string
 	Fields() []string
-	// TODO Search(odoo.Domain) ([]int64, error)
 }
 
 func TableName[T OdooModel](table T) string {
@@ -28,6 +27,11 @@ func Fields[T OdooModel](table T) []any {
 		}
 	}
 	return out
+}
+
+func Search[T OdooModel](conn *odoo.Client, args []any, opt map[string]any) ([]int64, error) {
+	var table T
+	return conn.Search(TableName(table), args, opt)
 }
 
 // SearchRead fill a slice of T with the fields specified in opt
