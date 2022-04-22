@@ -8,7 +8,6 @@ import (
 )
 
 type OdooModel interface {
-	TableName() string
 	Fields() []string
 }
 

@@ -10,10 +10,6 @@ type AccountTax struct {
 	Amount     float64 `json:"amount"`       // posible values sale, purchase, none
 }
 
-func (rp AccountTax) TableName() string {
-	return TableName(rp)
-}
-
 func (rp AccountTax) Fields() []string {
 	tInterface := Fields(rp)
 	out := make([]string, len(tInterface))
