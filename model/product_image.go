@@ -6,5 +6,5 @@ type ProductImage struct {
 	Id        int64      `json:"id"`
 	Name      string     `json:"name"`
 	VideoUrl  OdooString `json:"video_url"`
-	Image1920 []byte     `json:"image_1920"`
+	Image1920 Binary     `json:"image_1920"`
 }
