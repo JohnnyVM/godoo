@@ -116,7 +116,7 @@ func (c *Client) Read(model string, ids []int64, opt map[string]any) ([]any, err
 		_ids[idx] = id
 	}
 
-	reply, err := c.ExecuteKw("search", model, _ids, opt)
+	reply, err := c.ExecuteKw("read", model, _ids, opt)
 	if err != nil {
 		return nil, err
 	}
@@ -137,4 +137,43 @@ func (c *Client) SearchRead(model string, args []any, opt map[string]any) ([]any
 		return nil, errors.New("Invalid cast (expected []any)")
 	}
 	return out, nil
+}
+
+// Create a list of models from theirs id
+func (c *Client) Create(model string, args []any, opt map[string]any) (int64, error) {
+	reply, err := c.ExecuteKw("create", model, args, opt)
+	if err != nil {
+		return 0, err
+	}
+	sliceAnyId, ok := reply.([]any)
+	if !ok {
+		return 0, errors.New("Invalid cast (expected []any)")
+	}
+	if len(sliceAnyId) != 1 {
+		return 0, errors.New("Invalid response")
+	}
+	id, ok := sliceAnyId[0].(int64)
+	if !ok {
+		return 0, errors.New("Invalid cast (expected int64)")
+	}
+
+	return id, nil
+}
+
+// Write update a list of models from theirs id
+func (c *Client) Write(model string, ids []int64, args []any, opt map[string]any) error {
+	_, err := c.ExecuteKw("write", model, []any{ids, args}, opt)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// Unlink list of models from theirs id
+func (c *Client) Unlink(model string, ids []int64, opt map[string]any) error {
+	_, err := c.ExecuteKw("unlink", model, []any{ids}, opt)
+	if err != nil {
+		return err
+	}
+	return nil
 }
