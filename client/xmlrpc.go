@@ -2,7 +2,9 @@ package client
 
 import (
 	"errors"
+	"fmt"
 	"net/url"
+	"reflect"
 
 	"github.com/kolo/xmlrpc"
 )
@@ -145,16 +147,9 @@ func (c *Client) Create(model string, args []any, opt map[string]any) (int64, er
 	if err != nil {
 		return 0, err
 	}
-	sliceAnyId, ok := reply.([]any)
+	id, ok := reply.(int64)
 	if !ok {
-		return 0, errors.New("Invalid cast (expected []any)")
-	}
-	if len(sliceAnyId) != 1 {
-		return 0, errors.New("Invalid response")
-	}
-	id, ok := sliceAnyId[0].(int64)
-	if !ok {
-		return 0, errors.New("Invalid cast (expected int64)")
+		return 0, errors.New(fmt.Sprintf("Invalid cast (expected int64 get %s)", reflect.TypeOf(reply).Elem()))
 	}
 
 	return id, nil
