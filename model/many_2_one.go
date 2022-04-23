@@ -20,11 +20,3 @@ func (s *Many2One) UnmarshalJSON(data []byte) error {
 	}
 	return errors.New("Could not unmarshall Many2One")
 }
-
-func (s *Many2One) MarshalJSON() ([]byte, error) {
-	if *s == 0 {
-		return json.Marshal(nil)
-	}
-
-	return json.Marshal(int64(*s))
-}
