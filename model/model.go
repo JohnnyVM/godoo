@@ -89,3 +89,19 @@ func SearchRead[T OdooModel](conn *odoo.Client, args []any, opt map[string]any) 
 
 	return out, nil
 }
+
+// Create the model in conn
+func Create[T OdooModel](conn *odoo.Client, model T, opt map[string]any) (int64, error) {
+	cad, err := json.Marshal(model)
+	if err != nil {
+		return 0, err
+	}
+
+	var fields map[string]any // field id is ignored
+	err = json.Unmarshal(cad, &fields)
+	if err != nil {
+		return 0, err
+	}
+
+	return conn.Create(TableName(model), []any{fields}, opt)
+}
