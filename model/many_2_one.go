@@ -12,8 +12,8 @@ func (s *Many2One) UnmarshalJSON(data []byte) error {
 	var slice []any
 	if json.Unmarshal(data, &slice) == nil {
 		if len(slice) == 2 {
-			if data, ok := slice[0].(int64); ok {
-				*s = Many2One(data)
+			if receiveFloat, ok := slice[0].(float64); ok {
+				*s = Many2One(int64(receiveFloat))
 				return nil
 			}
 		}
