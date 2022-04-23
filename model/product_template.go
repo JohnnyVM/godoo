@@ -3,7 +3,7 @@ package model
 /// Odoo model product_template
 type ProductTemplate struct {
 	table                   string     `value:"product.template"`
-	Id                      int64      `json:"id,omitempty"`
+	Id                      int64      `json:"id"`
 	Active                  bool       `json:"active"`
 	SaleOk                  bool       `json:"sale_ok"`
 	PurchaseOk              bool       `json:"purchase_ok"`
