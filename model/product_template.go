@@ -8,7 +8,7 @@ type ProductTemplate struct {
 	SaleOk                  bool       `json:"sale_ok"`
 	PurchaseOk              bool       `json:"purchase_ok"`
 	Name                    string     `json:"name"`
-	CategId                 string     `json:"categ_id"`
+	CategId                 []string   `json:"categ_id"`
 	Barcode                 OdooString `json:"barcode"`
 	DefaultCode             OdooString `json:"default_code"`
 	Type                    string     `json:"type"` // posible values consu, service, product
