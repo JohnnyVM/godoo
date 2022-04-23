@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"reflect"
+	"strings"
 
 	odoo "github.com/JohnnyVM/godoo/client"
 )
@@ -21,7 +22,19 @@ func Fields[T OdooModel](table T) []any {
 	out := make([]any, 0)
 	for i := 0; i < v.NumField(); i++ {
 		if reflect.ValueOf(table).Field(i).CanInterface() {
-			out = append(out, v.Field(i).Tag.Get("json"))
+			field := v.Field(i)
+			switch jsonTag := field.Tag.Get("json"); jsonTag {
+			case "-":
+			case "":
+				out = append(out, field.Name)
+			default:
+				parts := strings.Split(jsonTag, ",")
+				name := parts[0]
+				if name == "" {
+					out = append(out, field.Name)
+				}
+				out = append(out, name)
+			}
 		}
 	}
 	return out
