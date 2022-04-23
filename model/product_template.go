@@ -15,7 +15,7 @@ type ProductTemplate struct {
 	TaxesId                 []int64    `json:"taxes_id"`
 	SupplierTaxesId         []int64    `json:"supplier_taxes_id"`
 	PublicCategIds          []int64    `json:"public_categ_ids"`
-	StandardPrice           float64    `json:"standad_price"` // cost
+	StandardPrice           float64    `json:"standard_price"` // cost
 	Image1920               []byte     `json:"image_1920"`
 	ProductTemplateImageIds []int64    `json:"product_template_image_ids"`
 }
